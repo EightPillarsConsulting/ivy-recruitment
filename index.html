@@ -173,8 +173,16 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold mb-1 text-gray-300">קישור לסרטון ביצועים / פרופיל ספורטאי (אופציונלי)</label>
-                        <input type="url" id="athleteLink" placeholder="https://youtube.com/..." class="w-full bg-brand-black border border-brand-border rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold text-left" dir="ltr">
+                        <label class="block text-xs font-semibold mb-1 text-gray-300">שכבת גיל</label>
+                        <select id="grade" required class="w-full bg-brand-black border border-brand-border rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold">
+                            <option value="" disabled selected>בחר שכבת גיל...</option>
+                            <option value="10">כיתה י'</option>
+                            <option value="11">כיתה י"א</option>
+                            <option value="12">כיתה י"ב</option>
+                            <option value="army">צבא</option>
+                            <option value="pre_army">מכינה / שנת שירות</option>
+                            <option value="other">אחר</option>
+                        </select>
                     </div>
 
                     <button type="submit" id="submitBtn" class="w-full bg-brand-gold text-brand-black font-extrabold py-3.5 rounded-lg hover:bg-brand-goldHover transition-all gold-glow mt-4">
@@ -230,19 +238,19 @@
 
             const fullName = document.getElementById('fullName').value;
             const email = document.getElementById('email').value;
-            const athleteLink = document.getElementById('athleteLink').value;
+            const grade = document.getElementById('grade').value;
 
             var _learnq = window._learnq || [];
             _learnq.push(['identify', {
                 '$email': email,
                 '$first_name': fullName,
                 'Sport': sport,
-                'Athlete_Profile_Link': athleteLink
+                'Grade': grade
             }]);
 
             _learnq.push(['track', 'Ivy Recruitment Guide Downloaded', {
                 'Sport': sport,
-                'ProfileLink': athleteLink
+                'Grade': grade
             }]);
 
             document.getElementById('modalStep1').classList.add('hidden');

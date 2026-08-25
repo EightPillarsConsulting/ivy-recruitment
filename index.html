@@ -206,7 +206,7 @@
                 <div class="w-12 h-12 bg-green-500/10 border border-green-500/30 rounded-full flex items-center justify-center mx-auto text-green-500 text-xl font-bold mb-4">✓</div>
                 <h3 class="text-xl font-bold mb-2">המדריך בדרך אליך!</h3>
                 <p class="text-sm text-brand-textMuted leading-relaxed mb-6">
-                    שלחנו את קובץ ה-PDF לכתובת המייל שלך. בדוק את תיבת הדואר הנכנס תוך מספר דקות.
+                    שלחנו את קובץ ה-PDF לכתובת המייל שלך. בנוסף, הקובץ ייפתח כעת בלשונית חדשה בדפדפן.
                 </p>
                 <button onclick="closeModal()" class="bg-brand-gold text-brand-black font-extrabold px-6 py-2.5 rounded-lg gold-glow">מעולה, תודה</button>
             </div>
@@ -252,6 +252,9 @@
                 'Sport': sport,
                 'Grade': grade
             }]);
+
+            // Open/Download the PDF directly in a new tab upon form submission
+            window.open('https://eightpillarsconsulting.github.io/ivy-recruitment/ncaa-recruiting-guide-israel-v5-interactive.pdf', '_blank');
 
             document.getElementById('modalStep1').classList.add('hidden');
             document.getElementById('modalSuccess').classList.remove('hidden');

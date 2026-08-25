@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>מפתח הגיוס לספורטאים | Ivy League Recruitment Guide</title>
+    
+    <!-- Favicon (Browser Tab Icon) -->
+    <link rel="icon" type="image/png" href="logo.png">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Rubik:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -48,11 +52,12 @@
 </head>
 <body class="font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-brand-gold selection:text-black">
 
-    <!-- Navbar -->
+    <!-- Navbar with Official Logo -->
     <header class="w-full border-b border-brand-border/60 bg-brand-black/80 backdrop-blur-md fixed top-0 z-40">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <span class="font-bold text-sm md:text-base text-brand-gold">מספורטאי לספורטאים ⚡</span>
+                <img src="logo.png" alt="Eight Pillars Consulting" class="w-10 h-10 rounded-full border border-brand-gold/40 shadow-sm">
+                <span class="font-bold text-sm md:text-base text-brand-gold">Eight Pillars Consulting</span>
             </div>
             <button onclick="openModal()" class="bg-brand-gold text-brand-black font-bold px-5 py-2.5 rounded-lg text-sm hover:bg-brand-goldHover transition-all gold-glow">
                 הורד את המדריך
@@ -90,12 +95,42 @@
             </ul>
         </div>
 
-        <button onclick="openModal()" class="w-full sm:w-auto bg-brand-gold text-brand-black text-lg font-extrabold px-10 py-5 rounded-xl hover:bg-brand-goldHover transition-all gold-glow mb-16">
+        <!-- Download PDF CTA Button -->
+        <button onclick="openModal()" class="w-full sm:w-auto bg-brand-gold text-brand-black text-lg font-extrabold px-10 py-5 rounded-xl hover:bg-brand-goldHover transition-all gold-glow mb-12">
             הורד את המדריך החינם עכשיו (PDF)
         </button>
+
+        <!-- Newsletter Subscription Section -->
+        <section class="w-full bg-gradient-to-b from-brand-card to-brand-black border border-brand-border rounded-2xl p-8 text-center relative overflow-hidden mb-12">
+            <div class="max-w-xl mx-auto">
+                <div class="inline-block px-3 py-1 bg-brand-gold/10 border border-brand-gold/30 rounded-full text-brand-gold text-xs font-bold mb-3">
+                    קהילת הספורטאים של ה-Ivy League 📩
+                </div>
+                <h3 class="text-2xl font-bold mb-2">הצטרף לרשימת התפוצה הבלעדית לספורטאים</h3>
+                <p class="text-sm text-brand-textMuted mb-6 leading-relaxed">
+                    קבל טיפים שבועיים על תהליך הגיוס, עדכונים על חלונות הזדמנויות ב-NCAA, והתראה מוקדמת לפני פתיחת מחזורי הליווי והקורסים.
+                </p>
+
+                <!-- Direct Newsletter Submission to Klaviyo -->
+                <form onsubmit="submitNewsletterToKlaviyo(event)" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input type="email" id="newsletterEmail" required placeholder="הכנס מייל..." class="flex-grow bg-brand-black border border-brand-border rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-gold text-right">
+                    <button type="submit" id="newsletterBtn" class="bg-brand-gold text-brand-black font-extrabold px-6 py-3 rounded-lg hover:bg-brand-goldHover transition-all whitespace-nowrap text-sm gold-glow">
+                        הרשם לעדכונים
+                    </button>
+                </form>
+                <p id="newsletterSuccess" class="hidden text-xs text-brand-gold mt-3 font-semibold">✓ נרשמת בהצלחה לרשימת התפוצה!</p>
+            </div>
+        </section>
+
+        <!-- Placeholder section for future paid offerings -->
+        <div id="future-courses" class="w-full p-8 border border-dashed border-brand-border rounded-2xl bg-brand-card/40 text-center">
+            <p class="text-xs text-brand-gold uppercase tracking-widest font-semibold">בקרוב</p>
+            <h3 class="text-xl font-bold mt-1 text-white">תכנית הליווי האישית והקורס המלא לקבלה ל-Ivy League</h3>
+        </div>
     </main>
 
-    <footer class="border-t border-brand-border/60 py-8 px-6 text-center text-xs text-brand-textMuted">
+    <footer class="border-t border-brand-border/60 py-8 px-6 text-center text-xs text-brand-textMuted flex flex-col items-center gap-2">
+        <img src="logo.png" alt="Eight Pillars" class="w-8 h-8 opacity-80">
         <p>כל הזכויות שמורות ל-Eight Pillars Consulting</p>
     </footer>
 
@@ -189,6 +224,7 @@
             }, 300);
         }
 
+        // Modal PDF Lead Submission
         function submitToKlaviyo(e) {
             e.preventDefault();
             
@@ -203,7 +239,6 @@
             const email = document.getElementById('email').value;
             const athleteLink = document.getElementById('athleteLink').value;
 
-            // Send Profile Data directly to Klaviyo
             var _learnq = window._learnq || [];
             _learnq.push(['identify', {
                 '$email': email,
@@ -212,15 +247,26 @@
                 'Athlete_Profile_Link': athleteLink
             }]);
 
-            // Trigger Custom Lead Event in Klaviyo
             _learnq.push(['track', 'Ivy Recruitment Guide Downloaded', {
                 'Sport': sport,
                 'ProfileLink': athleteLink
             }]);
 
-            // Show Success UI
             document.getElementById('modalStep1').classList.add('hidden');
             document.getElementById('modalSuccess').classList.remove('hidden');
+        }
+
+        // Newsletter Subscription Submission
+        function submitNewsletterToKlaviyo(e) {
+            e.preventDefault();
+            const email = document.getElementById('newsletterEmail').value;
+
+            var _learnq = window._learnq || [];
+            _learnq.push(['identify', { '$email': email }]);
+            _learnq.push(['track', 'Newsletter Subscribed']);
+
+            document.getElementById('newsletterEmail').value = '';
+            document.getElementById('newsletterSuccess').classList.remove('hidden');
         }
     </script>
 </body>
